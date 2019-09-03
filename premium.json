@@ -1,0 +1,91 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "functionAppName": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "PremiumV2"
+        },
+        "skuCode": {
+            "type": "string",
+            "defaultValue": "P1v2"
+        },
+        "workerSize": {
+            "type": "string",
+            "defaultValue": "3"
+        }
+    },
+    "variables": {
+        "storageName": "[uniquestring(resourceGroup().id)]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('functionAppName')]",
+            "type": "Microsoft.Web/sites",
+            "properties": {
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "powershell"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~2"
+                        }
+                    ],
+                    "alwaysOn": true
+                },
+                "name": "[parameters('functionAppName')]",
+                "clientAffinityEnabled": false,
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('functionAppName'))]",
+                "hostingEnvironment": ""
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', parameters('functionAppName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
+            ],
+            "apiVersion": "2016-03-01",
+            "location": "[resourceGroup().location]",
+            "kind": "functionapp"
+        },
+        {
+            "apiVersion": "2016-09-01",
+            "name": "[parameters('functionAppName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('functionAppName')]",
+                "workerSizeId": "[parameters('workerSize')]",
+                "numberOfWorkers": "1",
+                "hostingEnvironment": ""
+            },
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            }
+        },
+        {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('storageName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "accountType": "Standard_LRS"
+            }
+        }
+    ],
+    "outputs": {
+        "storageAccountName": {
+            "type": "string",
+            "value": "[variables('storageName')]"
+        }
+    }
+}

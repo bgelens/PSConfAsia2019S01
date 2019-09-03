@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/bengelens/Desktop/PSConfAsia2019S01/FunctionApp/extensions.csproj": {}
+  },
+  "projects": {
+    "/Users/bengelens/Desktop/PSConfAsia2019S01/FunctionApp/extensions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/bengelens/Desktop/PSConfAsia2019S01/FunctionApp/extensions.csproj",
+        "projectName": "extensions",
+        "projectPath": "/Users/bengelens/Desktop/PSConfAsia2019S01/FunctionApp/extensions.csproj",
+        "packagesPath": "/Users/bengelens/.nuget/packages/",
+        "outputPath": "/Users/bengelens/Desktop/PSConfAsia2019S01/FunctionApp/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/bengelens/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.Azure.WebJobs.Extensions.Storage": {
+              "target": "Package",
+              "version": "[3.0.4, )"
+            },
+            "Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
