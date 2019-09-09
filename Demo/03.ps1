@@ -43,28 +43,6 @@ Get-TerraformModule | Get-TerraformModuleDownloadLink
 # this incremented the download count
 Get-TerraformModule
 
-# see the commands that abstract the work for the function app
-Import-Module ../FunctionApp/Modules/TFReg/TFReg.psd1 -Verbose -Force
-$table = (Get-AzStorageTable -Context $st.Context -Name TFReg).CloudTable
-Get-TFModule -Table $table
-
-# create a new module entry
-$tfentry = New-TFModuleObject -Namespace 'bg' -Name 'bla' -Provider 'azurerm'
-$tfentry.Description = 'bla desc'
-$tfentry.Owner = 'ben'
-$tfentry.Version = '0.0.1'
-$tfentry.Published_At = [datetime]::Now
-
-New-TFModule -Table $table -TFModule $tfentry -Verbose
-
-Get-TFModule -Table $table
-
-# is it exposed now?
-Get-TerraformModule
-
-# remove the fake module
-Get-TFModule -Table $table -Id $tfentry.Id | Remove-TFModule -Table $table
-
 # see if terraform is able to consume the real module
 Set-Location ./tfproject
 $env:TF_LOG = 'Trace'

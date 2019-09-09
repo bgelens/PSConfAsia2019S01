@@ -1,5 +1,6 @@
 <# PowerShell as a client
     Duplicating terraform client interaction with api makes you understand what is needed
+    and helps you while developing without the need to run terraform init every time
     https://www.terraform.io/docs/registry/api.html
 #>
 

@@ -42,12 +42,6 @@ Invoke-RestMethod http://localhost:7071/api/demo -Method Post -ContentType 'appl
     } | ConvertTo-Json
 )
 
-# demo debugging experience from shell
-# stop function app and demo debugging from vs code
-func start &
-# call function, attach debugger
-Get-Job | Remove-Job -Force
-
 # publish to pre-created azure function app, remove wait-debugger first!
 Get-AzWebApp -ResourceGroupName psconfasia01
 func azure functionapp publish psconfasia01
