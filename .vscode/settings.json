@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "PowerShell ISE",
     "files.defaultLanguage": "powershell",
     "powershell.integratedConsole.focusConsoleOnExecute": false,
     "powershell.sideBar.CommandExplorerVisibility": false,

@@ -1,5 +1,6 @@
 $functionApp1 = 'psconfasia01'
 $functionApp2 = 'psconfasia02'
+$location = 'westindia'
 $currentContext = $psEditor.GetEditorContext()
 $workingDir = Split-Path -Path $currentContext.CurrentFile.Path
 $consumptionJson = Join-Path -Path $workingDir -ChildPath 'consumption.json'
@@ -12,7 +13,7 @@ if ($rg) {
     $rg | Remove-AzResourceGroup -Force
 }
 
-$rg = New-AzResourceGroup -Name $functionApp1 -Location westeurope
+$rg = New-AzResourceGroup -Name $functionApp1 -Location $location
 
 New-AzResourceGroupDeployment -TemplateFile $consumptionJson -ResourceGroupName $rg.ResourceGroupName -TemplateParameterObject @{functionAppName = $functionApp1}
 #endregion
@@ -23,7 +24,7 @@ if ($rg) {
     $rg | Remove-AzResourceGroup -Force
 }
 
-$rg = New-AzResourceGroup -Name $functionApp2 -Location westeurope
+$rg = New-AzResourceGroup -Name $functionApp2 -Location $location
 
 $deploy = New-AzResourceGroupDeployment -TemplateFile $premiumJson -ResourceGroupName $rg.ResourceGroupName -TemplateParameterObject @{functionAppName = $functionApp2}
 
